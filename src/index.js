@@ -155,7 +155,7 @@ class Game extends React.Component {
                     <div>{status}</div>
 
                     <button onClick={() => this.sortHistory()}>
-                        Sort type: {this.state.isDescending ? "Descending" : "Asending"}
+                        Sort type: {this.state.isDescending ? "Descending" : "Ascending"}
                     </button>
 
                     <ol>{this.state.isDescending ? moves : moves.reverse()}</ol>
