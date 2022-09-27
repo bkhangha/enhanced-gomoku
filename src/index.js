@@ -2,6 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
+//============================
+// Hà Bảo Khang             ||
+// MSSV: 19120252           ||
+//============================
+
 const BOARD_SIZE = 5;
 
 function Square(props) {
@@ -70,6 +75,14 @@ class Game extends React.Component {
     }
 
     handleClick(i) {
+        const boardCoordinates = [
+            [1, 1], [2, 1], [3, 1], [4, 1], [5, 1],
+            [1, 2], [2, 2], [3, 2], [4, 2], [5, 2],
+            [1, 3], [2, 3], [3, 3], [4, 3], [5, 3],
+            [1, 4], [2, 4], [3, 4], [4, 4], [5, 4],
+            [1, 5], [2, 5], [3, 5], [4, 5], [5, 5]
+          ];
+
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
@@ -80,7 +93,8 @@ class Game extends React.Component {
         this.setState({
             history: history.concat([
                 {
-                    squares: squares
+                    squares: squares,
+                    coordinate: boardCoordinates[i]
                 }
             ]),
             stepNumber: history.length,
@@ -108,8 +122,8 @@ class Game extends React.Component {
 
         const moves = history.map((step, move) => {
             const desc = move ?
-                'Go to move #' + move :
-                'Go to game start';
+                'Go to move #' + move + " at " + "(" + history[move].coordinate + ")"
+                : 'Go to game start';
             return (
                 <li key={move}>
                     <button onClick={() => this.jumpTo(move)}>
@@ -180,8 +194,7 @@ function calculateWinner(squares) {
         if (squares[a] && squares[a] === squares[b]
             && squares[a] === squares[c]
             && squares[a] === squares[d]
-            && squares[a] === squares[e]
-        ) {
+            && squares[a] === squares[e]) {
             return { player: squares[a], line: [a, b, c, d, e] };
         }
     }
